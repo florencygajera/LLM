@@ -291,7 +291,7 @@ class Paraphraser:
         "{prefix} {cols} from {t1} along with their {t2} information{suffix}",
         "{prefix} {cols} by joining {t1} and {t2}{suffix}",
         "{prefix} {cols} from {t1} with related {t2} data{suffix}",
-        "{prefix} {cols} — include the {t2} details for each {t1_singular}{suffix}",
+        "{prefix} {cols} -- include the {t2} details for each {t1_singular}{suffix}",
     ]
 
     GROUP_TEMPLATES = [
@@ -448,7 +448,7 @@ def schema_to_text(schema: Dict) -> str:
     if schema.get("foreign_keys"):
         lines.append("Foreign Keys:")
         for fk_from, fk_to in schema["foreign_keys"]:
-            lines.append(f"  {fk_from} → {fk_to}")
+            lines.append(f"  {fk_from} -> {fk_to}")
     return "\n".join(lines)
 
 
@@ -697,7 +697,7 @@ def save_jsonl(data: List[Dict], path: str):
     with open(path, "w", encoding="utf-8") as f:
         for item in data:
             f.write(json.dumps(item, ensure_ascii=False) + "\n")
-    print(f"[nl2sql_generator] Saved {len(data)} examples → {path}")
+    print(f"[nl2sql_generator] Saved {len(data)} examples -> {path}")
 
 
 def main():

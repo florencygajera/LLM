@@ -1,7 +1,7 @@
 """
 Minimal smoke test that:
   1. Loads a sample schema
-  2. Generates 20 synthetic NL→SQL pairs
+  2. Generates 20 synthetic NL->SQL pairs
   3. Trains tokenizer on bootstrap corpus
   4. Trains tiny model for a few steps (smoke test)
   5. Runs inference on 5 questions
@@ -35,7 +35,7 @@ from train.eval import check_parse
 
 def run_smoke_test():
     print("=" * 70)
-    print("SMOKE TEST — From-Scratch NL2SQL LLM")
+    print("SMOKE TEST -- From-Scratch NL2SQL LLM")
     print("=" * 70)
 
     tmp_dir = tempfile.mkdtemp(prefix="nl2sql_smoke_")
@@ -43,13 +43,13 @@ def run_smoke_test():
 
     try:
         # ------------------------------------------------------------------
-        # Step 1: Generate NL→SQL pairs
+        # Step 1: Generate NL->SQL pairs
         # ------------------------------------------------------------------
-        print("\n[Step 1] Generating NL→SQL pairs from sample schema...")
+        print("\n[Step 1] Generating NL->SQL pairs from sample schema...")
         schema = SAMPLE_SCHEMAS[0]  # tsql employee schema
         gen = SQLGenerator(schema)
         pairs = gen.generate_all(queries_per_pattern=2)
-        print(f"  Generated {len(pairs)} NL→SQL pairs")
+        print(f"  Generated {len(pairs)} NL->SQL pairs")
 
         # save as jsonl
         jsonl_path = os.path.join(tmp_dir, "train.jsonl")
@@ -108,7 +108,7 @@ def run_smoke_test():
         model = GPT(cfg).to(device)
         optimizer = torch.optim.AdamW(model.parameters(), lr=1e-3)
 
-        # prepare a few training batches from the NL→SQL data
+        # prepare a few training batches from the NL->SQL data
         from train.sft_train import format_example
         model.train()
         for step in range(5):
@@ -127,7 +127,7 @@ def run_smoke_test():
             optimizer.zero_grad()
             print(f"  Step {step + 1}: loss={loss.item():.4f}")
 
-        print("  Training 5 steps completed ✓")
+        print("  Training 5 steps completed [OK]")
 
         # ------------------------------------------------------------------
         # Step 4: Run inference on 5 questions
@@ -172,7 +172,7 @@ def run_smoke_test():
             print(f"  A: {generated[:100]}")
             print()
 
-        print(f"  Generated {len(generated_sqls)} responses ✓")
+        print(f"  Generated {len(generated_sqls)} responses [OK]")
 
         # ------------------------------------------------------------------
         # Step 5: Verify validator and parser
@@ -189,12 +189,12 @@ def run_smoke_test():
         for sql, dialect in good_sqls:
             # parse test
             parse_ok, parse_err = check_parse(sql, dialect)
-            status = "✓" if parse_ok else "✗"
+            status = "[OK]" if parse_ok else "[FAIL]"
             print(f"  {status} Parse: {sql[:60]}  {'('+parse_err+')' if parse_err else ''}")
 
             # validate test
             ok, cleaned, msgs = validate_sql(sql, schema, dialect)
-            status = "✓" if ok else "✗"
+            status = "[OK]" if ok else "[FAIL]"
             print(f"  {status} Validate: {sql[:60]}  msgs={msgs}")
 
         # test unsafe SQL detection
@@ -207,7 +207,7 @@ def run_smoke_test():
         print("\n  Testing unsafe SQL detection:")
         for sql in unsafe_sqls:
             ok, cleaned, msgs = validate_sql(sql, schema, "tsql")
-            status = "✓ BLOCKED" if not ok else "✗ ALLOWED (BAD!)"
+            status = "[OK] BLOCKED" if not ok else "[FAIL] ALLOWED (BAD!)"
             print(f"    {status}: {sql[:60]}  msgs={msgs}")
             assert not ok, f"Unsafe SQL was not blocked: {sql}"
 
@@ -221,15 +221,15 @@ def run_smoke_test():
         ]
         for text, expected in dialect_tests:
             detected = detect_dialect(text)
-            status = "✓" if detected == expected else "✗"
-            print(f"    {status} {text[:50]} → {detected} (expected {expected})")
+            status = "[OK]" if detected == expected else "[FAIL]"
+            print(f"    {status} {text[:50]} -> {detected} (expected {expected})")
             assert detected == expected
 
         # ------------------------------------------------------------------
         # Summary
         # ------------------------------------------------------------------
         print("\n" + "=" * 70)
-        print("ALL SMOKE TESTS PASSED ✓")
+        print("ALL SMOKE TESTS PASSED [OK]")
         print("=" * 70)
 
     finally:

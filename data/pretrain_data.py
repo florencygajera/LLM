@@ -83,7 +83,7 @@ def save_packed(arr: np.ndarray, output_dir: str, split: str = "train"):
         f.write(f"n_sequences={arr.shape[0]}\n")
         f.write(f"seq_len={arr.shape[1]}\n")
         f.write(f"dtype=uint16\n")
-    print(f"[pretrain_data] Saved {arr.shape[0]} sequences of length {arr.shape[1]} → {path}")
+    print(f"[pretrain_data] Saved {arr.shape[0]} sequences of length {arr.shape[1]} -> {path}")
 
 
 def main():

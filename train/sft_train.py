@@ -280,7 +280,7 @@ def save_sft_checkpoint(model, optimizer, epoch, global_step, output_dir):
         "epoch": epoch,
         "global_step": global_step,
     }, path)
-    print(f"[sft] Checkpoint → {path}")
+    print(f"[sft] Checkpoint -> {path}")
 
 
 # ---------------------------------------------------------------------------

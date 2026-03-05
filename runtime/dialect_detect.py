@@ -82,7 +82,7 @@ def detect_dialect(connection_text: str) -> str:
         ValueError: If dialect cannot be determined.
     """
     if not connection_text or not connection_text.strip():
-        raise ValueError("Empty connection text — cannot detect dialect.")
+        raise ValueError("Empty connection text -- cannot detect dialect.")
 
     text = connection_text.strip()
 
@@ -131,5 +131,5 @@ if __name__ == "__main__":
     ]
     for text, expected in tests:
         result = detect_dialect(text)
-        status = "✓" if result == expected else "✗"
-        print(f"  {status} detect_dialect({text[:50]!r}...) → {result} (expected {expected})")
+        status = "[OK]" if result == expected else "[FAIL]"
+        print(f"  {status} detect_dialect({text[:50]!r}...) -> {result} (expected {expected})")

@@ -172,7 +172,7 @@ def _convert_sqlite(connstr: str) -> str:
 
 
 def _convert_oracle(connstr: str) -> str:
-    """Convert to Oracle SQLAlchemy URL (placeholder — basic support)."""
+    """Convert to Oracle SQLAlchemy URL (placeholder -- basic support)."""
     if connstr.startswith("oracle"):
         return connstr
 
@@ -220,6 +220,6 @@ if __name__ == "__main__":
     for cs in tests:
         try:
             url = connstr_to_sqlalchemy_url(cs)
-            print(f"  {cs[:60]:<60} → {url}")
+            print(f"  {cs[:60]:<60} -> {url}")
         except Exception as e:
-            print(f"  {cs[:60]:<60} → ERROR: {e}")
+            print(f"  {cs[:60]:<60} -> ERROR: {e}")

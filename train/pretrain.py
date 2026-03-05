@@ -45,7 +45,7 @@ class PackedDataset(Dataset):
         n_tokens = len(data)
         n_seqs = n_tokens // seq_len
         self.data = data[: n_seqs * seq_len].reshape(n_seqs, seq_len)
-        print(f"[PackedDataset] Loaded {n_seqs} sequences of length {seq_len} from {bin_path}")
+        print(f"[PackedDataset] Loaded {n_seqs} sequences of length {seq_len} -> {bin_path}")
 
     def __len__(self):
         return len(self.data)
@@ -205,7 +205,7 @@ def save_checkpoint(model, optimizer, scaler, epoch, global_step, output_dir):
     # also save epoch-specific
     epoch_path = os.path.join(output_dir, f"epoch_{epoch}.pt")
     torch.save({"model": model.state_dict(), "epoch": epoch, "global_step": global_step}, epoch_path)
-    print(f"[pretrain] Checkpoint saved → {path}")
+    print(f"[pretrain] Checkpoint saved -> {path}")
 
 
 # ---------------------------------------------------------------------------

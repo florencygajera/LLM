@@ -126,7 +126,7 @@ def schema_to_text(schema: Dict) -> str:
     if schema.get("foreign_keys"):
         lines.append("Foreign Keys:")
         for fk_from, fk_to in schema["foreign_keys"]:
-            lines.append(f"  {fk_from} → {fk_to}")
+            lines.append(f"  {fk_from} -> {fk_to}")
     return "\n".join(lines)
 
 

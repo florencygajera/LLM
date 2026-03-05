@@ -219,9 +219,9 @@ if __name__ == "__main__":
 
     for sql, dialect in tests:
         ok, cleaned, msgs = validate_sql(sql, test_schema, dialect)
-        status = "✓ VALID" if ok else "✗ INVALID"
+        status = "[OK] VALID" if ok else "[FAIL] INVALID"
         print(f"  {status}: {sql[:60]}")
         if cleaned:
-            print(f"    → {cleaned}")
+            print(f"    -> {cleaned}")
         if msgs:
             print(f"    msgs: {msgs}")
