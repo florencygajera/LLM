@@ -1,0 +1,25 @@
+# Core ML
+torch>=2.1.0
+tokenizers>=0.15.0
+
+# Data
+datasets>=2.14.0
+
+# SQL parsing & transpilation
+sqlglot>=20.0.0
+
+# Database connectivity
+sqlalchemy>=2.0.0
+pyodbc>=5.0.0
+pymysql>=1.1.0
+psycopg2-binary>=2.9.0
+
+# API
+fastapi>=0.104.0
+uvicorn>=0.24.0
+pydantic>=2.5.0
+
+# Training utilities
+accelerate>=0.25.0
+tqdm>=4.66.0
+numpy>=1.24.0
