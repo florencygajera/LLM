@@ -16,9 +16,13 @@ Or used programmatically:
 import argparse
 import json
 import os
+import sys
 import sqlite3
 import re
 from typing import Dict, List, Optional, Tuple
+
+# Ensure project root is on sys.path so sibling packages are importable
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import sqlglot
 

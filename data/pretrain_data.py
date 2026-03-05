@@ -17,8 +17,12 @@ import argparse
 import glob
 import os
 import struct
+import sys
 from pathlib import Path
 from typing import List
+
+# Ensure project root is on sys.path so sibling packages are importable
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import numpy as np
 from tokenizers import Tokenizer

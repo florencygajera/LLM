@@ -26,7 +26,11 @@ import argparse
 import json
 import math
 import os
+import sys
 from typing import List, Dict
+
+# Ensure project root is on sys.path so sibling packages are importable
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import torch
 import torch.nn as nn

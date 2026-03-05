@@ -12,9 +12,14 @@ Supported inputs:
   - DSN strings: "DSN=mydsn;UID=user;PWD=pass;"
 """
 
+import os
 import re
+import sys
 import urllib.parse
 from typing import Dict, Optional, Tuple
+
+# Ensure project root is on sys.path so sibling packages are importable
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from runtime.dialect_detect import detect_dialect
 

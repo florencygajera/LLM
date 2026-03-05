@@ -187,7 +187,7 @@ class GPT(nn.Module):
         n_params = sum(p.numel() for p in self.parameters() if p.requires_grad)
         # subtract the tied lm_head
         n_params -= self.lm_head.weight.numel()
-        print(f"GPT model initialised — {n_params / 1e6:.1f}M trainable parameters (excl. weight-tied lm_head)")
+        print(f"GPT model initialised -- {n_params / 1e6:.1f}M trainable parameters (excl. weight-tied lm_head)")
 
     def _init_weights(self, module: nn.Module):
         if isinstance(module, nn.Linear):
