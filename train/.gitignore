@@ -1,0 +1,10 @@
+# model checkpoints / weights
+checkpoints/
+*.pt
+*.pth
+*.bin
+*.safetensors
+
+# logs
+runs/
+wandb/
