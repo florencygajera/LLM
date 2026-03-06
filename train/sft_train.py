@@ -169,7 +169,7 @@ def train(args):
         model.parameters(), lr=args.lr,
         betas=(0.9, 0.95), weight_decay=args.weight_decay,
     )
-    scaler = torch.amp.GradScaler("cuda", enabled=use_amp)
+    scaler = torch.amp.GradScaler(device.type, enabled=use_amp)
 
     # resume
     start_epoch = 0
@@ -209,7 +209,7 @@ def train(args):
             for pg in optimizer.param_groups:
                 pg["lr"] = lr_now
 
-            with torch.amp.autocast("cuda", enabled=use_amp):
+            with torch.amp.autocast(device.type, enabled=use_amp):
                 out = model(input_ids)
                 logits = out["logits"]
                 # shift
@@ -263,7 +263,7 @@ def evaluate_sft(model, dataset, batch_size, device, use_amp, cfg, loss_fn):
     for input_ids, labels in loader:
         input_ids = input_ids.to(device)
         labels = labels.to(device)
-        with torch.amp.autocast("cuda", enabled=use_amp):
+        with torch.amp.autocast(device.type, enabled=use_amp):
             out = model(input_ids)
             logits = out["logits"]
             shift_logits = logits[:, :-1, :].contiguous()

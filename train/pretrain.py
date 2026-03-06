@@ -99,7 +99,7 @@ def train(args):
     )
 
     # mixed precision
-    scaler = torch.amp.GradScaler("cuda", enabled=use_amp)
+    scaler = torch.amp.GradScaler(device.type, enabled=use_amp)
 
     # resume checkpoint
     start_epoch = 0
@@ -140,7 +140,7 @@ def train(args):
             for pg in optimizer.param_groups:
                 pg["lr"] = lr
 
-            with torch.amp.autocast("cuda", enabled=use_amp):
+            with torch.amp.autocast(device.type, enabled=use_amp):
                 out = model(tokens, labels=tokens)
                 loss = out["loss"] / args.grad_accum
 
@@ -188,7 +188,7 @@ def evaluate(model, dataset, batch_size, device, use_amp):
     n = 0
     for tokens in loader:
         tokens = tokens.to(device)
-        with torch.amp.autocast("cuda", enabled=use_amp):
+        with torch.amp.autocast(device.type, enabled=use_amp):
             out = model(tokens, labels=tokens)
         total_loss += out["loss"].item()
         n += 1
